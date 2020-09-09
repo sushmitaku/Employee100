@@ -2,7 +2,7 @@ echo "Welcome to Emplyoee Wage Computation"
 #UC1 program is added Employee present or not"
 
 #!/bin/bash
-
+workingDay=20
 wageperhour=20 
 randomCheck=$(( RANDOM%3 ))
 case $randomCheck in
@@ -12,8 +12,10 @@ case $randomCheck in
 	*)
 	echo "wrong input"
 esac
-salary=$(( $Hour*$wageperhour ))
-echo $salary
+OneDaysalary=$(( $Hour*$wageperhour ))
+salary20day=$(($OneDaysalary*20 ))
+echo "wages for a month"
+echo $salary20day
 
 
 
