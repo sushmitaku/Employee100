@@ -3,16 +3,18 @@ echo "Welcome to Emplyoee Wage Computation"
 
 #!/bin/bash
 
+IsPartTime=1
+IsFullTime=2
 wageperhour=20
 fulldayHour=16
 partTimehour=8 
-randomCheck=$(( RANDOM%3 ))
-if [ $randomCheck -eq 2 ]
+EmployeeCheck=$(( RANDOM%3 ))
+if [ $EmployeeCheck -eq $IsFullTime ]
 then
 	echo "Employee is present"
         salary=$(( $wageperhour*$fulldayHour ))
         echo $salary
-elif [ $randomCheck -eq 1 ]
+elif [ $EmployeeCheck -eq $IsPartTime ]
 then
         echo "Employee is present"
         salary=$(( $wageperhour*$partTimehour ))
