@@ -3,9 +3,7 @@ echo "Welcome to Emplyoee Wage Computation"
 
 #!/bin/bash
 
-wageperhour=20
-fulldayHour=16
-partTimehour=8 
+wageperhour=20 
 randomCheck=$(( RANDOM%3 ))
 case $randomCheck in
 	0) Hour=0 ;;
