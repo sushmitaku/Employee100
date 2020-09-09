@@ -1,27 +1,40 @@
 echo "Welcome to Emplyoee Wage Computation"
 #UC1 program is added Employee present or not"
 
-#!/bin/bash
+#!/bin/bash -x 
 
 IsfullTime=2
 IsHalfTime=1
 workingDay=20
 wageperhour=20
 GivenHour=100
-EmployeeCheck=$(( RANDOM%3 ))
-case $EmployeeCheck in
-	$IsfullTime) Hour=16
+day=1
+presentHour=0
+fullworkingHour=16
+halfworkingHour=8
+while [ $day -le $workingDay ] && [ $presentHour -lt $GivenHour ]
+do
+	EmployeeCheck=$(( RANDOM%3 ))
+	case $EmployeeCheck in
+	$IsfullTime)
+		DailyHour=$fullworkingHour
 		;;
-        $IsHalfTime) Hour=8
+	$IsHalfTime)
+		DailyHour=$halfworkingHour
 		;;
 	*)
-	Hour=0
-	;;
+		DailyHour=0
+		;;
 esac
-OneDaysalary=$(( $Hour*$wageperhour ))
-salary20day=$(($OneDaysalary*20 ))
-echo "wages for a month"
-echo $salary20day
+
+	dailyWage=$(( $wageperhour*$DailyHour ))
+	echo "Daily wages : $dailyWage"
+	presentHour=$(( $presentHour+$DailyHour ))
+	totalwage=$(( $presentHour*$wageperhour ))
+	echo "Total wages : $totalwage"
+	(( day++ ))
+done
+
 
 
 
