@@ -3,6 +3,8 @@ echo "Welcome to Emplyoee Wage Computation"
 
 #!/bin/bash -x 
 
+declare -A dailywage
+declare -A totalwage
 IsfullTime=2
 IsHalfTime=1
 workingDay=20
@@ -12,27 +14,34 @@ day=1
 presentHour=0
 fullworkingHour=16
 halfworkingHour=8
-while [ $day -le $workingDay ] && [ $presentHour -lt $GivenHour ]
-do
-	EmployeeCheck=$(( RANDOM%3 ))
-	case $EmployeeCheck in
+function gethours(){
+	local ispresent=$1
+	case $ispresent in
 	$IsfullTime)
-		DailyHour=$fullworkingHour
+		echo $fullworkingHour
 		;;
 	$IsHalfTime)
-		DailyHour=$halfworkingHour
+		echo $halfworkingHour
 		;;
 	*)
-		DailyHour=0
+		echo 0
 		;;
 esac
-
-	dailyWage=$(( $wageperhour*$DailyHour ))
-	echo "Daily wages : $dailyWage"
-	presentHour=$(( $presentHour+$DailyHour ))
-	totalwage=$(( $presentHour*$wageperhour ))
-	echo "Total wages : $totalwage"
+}
+while [ $day -le $workingDay ] && [ $presentHour -lt $GivenHour ]
+do
+	ispresent=$(( RANDOM % 3 ))
+	dailyhour="$( gethours $ispresent )"
+	dailywage[Day $day]=$(( $wageperhour * $dailyhour ))
+	presentHour=$(( $presentHour + $dailyhour ))
+	totalwage[Day $day]=$(( $presentHour * $wageperhour ))
 	(( day++ ))
+done
+
+echo "Day           Dailywages          Total wage"
+for(( i=1; i<$day; i++ ))
+do
+	echo "Day $i             ${dailywage[Day $i]}            ${totalwage[Day $i]}"
 done
 
 
